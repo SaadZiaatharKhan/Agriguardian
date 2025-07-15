@@ -18,9 +18,9 @@ export default function App() {
     });
   }, []);
 
-  // if (session) {
+  if (session) {
     return <Redirect href="/(tabs)/information" />;
-  // }
+  }
 
-  // return <Redirect href="/(auth)/welcome" />;
+  return <Redirect href="/(auth)/welcome" />;
 }

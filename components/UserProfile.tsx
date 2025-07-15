@@ -24,16 +24,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ showModal }) => {
           source={icons.user_modal}
           className="w-[110px] h-[110px] mx-auto my-5"
         />
-        <Text className="text-2xl font-JakartaBold text-center font-semibold">
+        <Text className="text-2xl font-JakartaBold text-center font-bold">
           Name:
         </Text>
-        <Text className="text-xl font-JakartaBold text-center font-medium">
+        <Text className="text-xl font-JakartaBold text-center font-semibold">
           {user?.name}
         </Text>
-        <Text className="text-2xl font-JakartaBold text-center font-semibold">
+        <Text className="text-2xl font-JakartaBold text-center font-bold">
           Email:
         </Text>
-        <Text className="text-xl font-JakartaBold text-center font-medium">
+        <Text className="text-xl font-JakartaBold text-center font-semibold">
           {user?.email}
         </Text>
         <CustomButton

@@ -36,3 +36,10 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+Models/agriculture_vector_db/
+Models/vector_db/
+Models/VectorDB/vector_db/
+Models/VectorDB/Information_About_Crops/
+Models/.venv/
+Models/__pycache__/

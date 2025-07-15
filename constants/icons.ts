@@ -33,6 +33,9 @@ import date from "@/assets/icons/date.png"
 import time from "@/assets/icons/time.png"
 import flame_detection from "@/assets/icons/flame_detection.png"
 import location from "@/assets/icons/location.png"
+import wind_direction from "@/assets/icons/wind_direction.png"
+import chart from "@/assets/icons/chart.png"
+import farm from "@/assets/icons/farm.png"
 
 export const icons = { 
   left_arrow,
@@ -69,5 +72,8 @@ export const icons = {
   date,
   time,
   flame_detection,
-  location
+  location,
+  wind_direction,
+  chart,
+  farm
 };

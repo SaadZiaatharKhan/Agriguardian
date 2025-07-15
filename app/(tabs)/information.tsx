@@ -1,5 +1,5 @@
 import TopSection from "@/components/TopSection";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Image,
   Text,
@@ -13,7 +13,10 @@ import { useTheme } from "@/components/ThemeContext";
 import { icons } from "@/constants/icons";
 import { ImageSourcePropType } from "react-native";
 import WebView from "react-native-webview";
-import * as Location from "expo-location";
+import Chart from "@/components/Chart";
+import Swiper from "react-native-swiper";
+import { useCharts } from "@/constants/charts";
+import { useUserLocation } from "@/hooks/useUserLocation";
 
 type SensorData = {
   temperature: number;
@@ -29,7 +32,7 @@ type SensorData = {
   tiltServoPosition: number;
 };
 
-export default function Home() {
+export default function Information() {
   const [data, setData] = useState<SensorData>({
     temperature: 0,
     humidity: 0,
@@ -44,16 +47,19 @@ export default function Home() {
     tiltServoPosition: 0,
   });
 
-  const [location, setLocation] = useState<Location.LocationObject | null>(
-    null
-  );
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  // Use the location hook instead of duplicating the logic
+  const { location, latitude, longitude, errorMsg } = useUserLocation();
+
+  // Use the charts hook to get charts data with current location
+  const { charts } = useCharts();
 
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const ESP32_IP = "192.168.56.205";
-  const ESP32_CAMERA_IP = "192.168.56.140";
+  const ESP32_IP = `${process.env.EXPO_PUBLIC_ESP32_IP}`;
+  const ESP32_CAMERA_IP = `${process.env.EXPO_PUBLIC_ESP32_CAMERA_IP}`;
+
+  console.log("ESP32_CAMERA_IP =>", ESP32_CAMERA_IP);
 
   // compute heights
   const windowHeight = Dimensions.get("window").height;
@@ -124,27 +130,8 @@ export default function Home() {
     </View>
   );
 
-  useEffect(() => {
-    async function getCurrentLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    }
-
-    getCurrentLocation();
-  }, []);
-
-  let locationText = "Waiting...";
-  if (errorMsg) {
-    locationText = errorMsg;
-  } else if (location) {
-    locationText = JSON.stringify(location);
-  }
+  const swiperRef = useRef<Swiper>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <SafeAreaView className={`flex-1 bg-${isDark ? "black" : "white"}`}>
@@ -173,6 +160,10 @@ export default function Home() {
             Live Camera Stream:
           </Text>
           <View className="m-2 border border-gray-300 rounded-lg overflow-hidden flex-1">
+            {
+              
+
+            }
             <WebView
               source={{ uri: `http://${ESP32_CAMERA_IP}` }}
               style={{ width: "100%", height: streamHeight }}
@@ -188,13 +179,18 @@ export default function Home() {
         {/* Farm Details (100vh) */}
         <View
           style={{ height: detailsHeight, width: "100%" }}
-          className="mt-3 rounded-lg p-1 bg-[#acefc4]"
+          className="mt-3 rounded-lg p-1 bg-[#e7fcef]"
         >
           <Text
             className={`px-4 mt-4 text-2xl font-bold ${
               isDark ? "text-white" : "text-black"
             }`}
           >
+            <Image
+              source={icons.farm}
+              className="w-6 h-6 m-2 p-1"
+              resizeMode="contain"
+            />
             Farm Details:
           </Text>
 
@@ -253,6 +249,59 @@ export default function Home() {
                 labels: ["ON", "OFF"],
               }
             )}
+          </View>
+        </View>
+
+        {/* Weather Charts */}
+        <View
+          style={{ height: detailsHeight, width: "100%" }}
+          className="mt-3 rounded-lg p-1 bg-[#e5f9ff]"
+        >
+          <Text
+            className={`px-4 mt-4 text-2xl font-bold ${
+              isDark ? "text-white" : "text-black"
+            }`}
+          >
+            <Image
+              source={icons.chart}
+              className="w-6 h-6 mr-2"
+              resizeMode="contain"
+            />
+            Charts:
+          </Text>
+
+          <View style={{ height: detailsHeight * 0.85 }}>
+            <Swiper
+              ref={swiperRef}
+              loop={true}
+              showsPagination={true}
+              dot={
+                <View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />
+              }
+              activeDot={
+                <View className="w-[32px] h-[4px] mx-1 bg-[#00ab33] rounded-full" />
+              }
+              onIndexChanged={(index) => setActiveIndex(index)}
+              paginationStyle={{ bottom: 10 }}
+            >
+              {charts.map((item) => (
+                <View
+                  key={item.id}
+                  className="flex-1 items-center justify-center p-4"
+                >
+                  <Chart
+                    id={item.id}
+                    title={item.title}
+                    icon={item.icon}
+                    color={item.color}
+                    backgroundGradientFrom={item.backgroundGradientFrom}
+                    background={item.background}
+                    urldata={item.urldata}
+                    type={item.type}
+                  />
+                </View>
+              ))}
+            </Swiper>
           </View>
         </View>
       </ScrollView>
