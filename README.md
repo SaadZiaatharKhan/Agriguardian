@@ -8,10 +8,10 @@ Agriguardian is a React Native mobile app that uses an ESP32-CAM module and envi
 ## Table of Contents:
 - [AgriGuardian : AI Based Smart Crop Disease Dectector and Treatment Advisor](#agriguardian--ai-based-smart-crop-disease-dectector-and-treatment-advisor)
 - [Table of Contents:](#table-of-contents)
-- [Technologies Used:](#technologies-used)
-- [Hardware Requirements:](#hardware-requirements)
-- [Software Requirements:](#software-requirements)
-- [Workflow :](#workflow-)
+- [Technologies Used](#technologies-used)
+- [Hardware Requirements](#hardware-requirements)
+- [Software Requirements](#software-requirements)
+- [Workflow](#workflow)
 - [Setup](#setup)
   - [For Supabase](#for-supabase)
   - [For React Native](#for-react-native)
@@ -22,7 +22,7 @@ Agriguardian is a React Native mobile app that uses an ESP32-CAM module and envi
 - [Advantages](#advantages)
 - [PPT](#ppt)
 
-## Technologies Used:
+## Technologies Used
 - React Native
 - Expo
 - Supabase
@@ -38,7 +38,7 @@ Agriguardian is a React Native mobile app that uses an ESP32-CAM module and envi
 - Gemini
 - Open Meteo
 
-## Hardware Requirements:
+## Hardware Requirements
 - ESP32‑CAM module (with onboard OV2640 camera)
 - ESP32 development board (for Servo control library and extra I/O)
 - FTDI module
@@ -62,13 +62,13 @@ Agriguardian is a React Native mobile app that uses an ESP32-CAM module and envi
 
 **Note :** OLED and buttons are optional.
 
-## Software Requirements:
+## Software Requirements
 - [Node.js (Latest LTS Version)](https://nodejs.org/en/blog/release/v22.17.1)
 - [Python (3.11.4)](https://www.python.org/downloads/release/python-3114/)
 - [Arduino IDE](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-downloading-and-installing/)
 - [Expo GO in Mobile (Expo GO 52)](https://expo.dev/go?sdkVersion=52&platform=android&device=false)
 
-## Workflow : 
+## Workflow
    ![Architecture](README/image.png)
 
 ## Setup
@@ -156,7 +156,7 @@ Clone the repository.
 1. Connect the ESP32, ESP32-CAM module, Mobile and Laptop (or PC) to the same network (Common WiFi or can be Mobile Hotspot).
 2. Open the terminal.
 3. Type `ipconfig` to get the IP address of your network.
-4. Copy the IP address and paste in the `EXPO_PUBLIC_ESP32_CAMERA_IP` environment variable and `apiEndpoint` (line no. 21) of `ESP32_CAMERA.ino` and upload the code.
+4. Copy the IP address in `IPv4 Address` and paste in the `EXPO_PUBLIC_ESP32_CAMERA_IP` environment variable and `apiEndpoint` (line no. 21) of `ESP32_CAMERA.ino` and upload the code.
 5. Connect the ESP32 and ESP32 CAM module to Laptop and check Serial Monitor. Note the IP address on which these devices are running and paste these IPs in `EXPO_PUBLIC_ESP32_IP` and `EXPO_PUBLIC_ESP32_CAMERA_IP` respectively.
 6. Navigate to Models folder and open terminal and run `uvicorn prediction_server:app --host 0.0.0.0 --port 8000` to start the python server. You can also check if the python server is running by going to `http://<YOUR_IP_ADDRESS>:8000/` in your browser. If not working, check the IP address again.
 7. Now go to root directory and run `npx expo start -c` to start the app. You will get a QR code there.
