@@ -62,7 +62,7 @@ const PlantMonitorApp = () => {
   const [causesOpen, setCausesOpen] = useState(false);
   const [treatmentOpen, setTreatmentOpen] = useState(false);
 
-  const SERVER_URL = 'http://10.134.61.178:8000';
+  const SERVER_URL = `${process.env.EXPO_PUBLIC_PYTHON_SERVER}:8000`;
 
   const fetchLatestData = async () => {
     try {

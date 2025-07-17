@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { debounce } from 'lodash';
 
-const API_URL = 'http://10.134.61.178:8000'; // Replace with your actual API URL
+const API_URL = `${process.env.EXPO_PUBLIC_PYTHON_SERVER}:8000`;
 
 const AccordionItem = ({ title, content }) => {
   const [expanded, setExpanded] = useState(false);

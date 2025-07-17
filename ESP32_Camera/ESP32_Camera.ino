@@ -14,11 +14,11 @@ extern void startCameraServer();
 #include "camera_pins.h"
 
 // Wi‑Fi credentials
-const char* ssid     = "MyWifi";
-const char* password = "12345054321";
+const char* ssid     = "<YOUR_WIFI_NAME>";
+const char* password = "<YOUR_WIFI_PASSWORD>";
 
 // Python server snapshot endpoint
-const char* apiEndpoint     = "http://10.134.61.178:8000/snapshot";
+const char* apiEndpoint     = "http://<YOUR_IPv4_ADDRESS>:8000/snapshot";
 
 // Capture interval (ms)
 const unsigned long CAPTURE_INTERVAL = 10000;

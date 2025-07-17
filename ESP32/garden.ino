@@ -65,8 +65,8 @@ unsigned long lastFlameAlertTime = 0;
 unsigned long lastSoilMoistureAlertTime = 0;
 
 // WiFi and web server setup
-const char* ssid = "MyWifi";
-const char* password = "12345054321";
+const char* ssid = "<YOUR_WIFI_NAME>";
+const char* password = "<YOUR_WIFI_PASSWORD>";
 WebServer server(80);
 
 // Function prototypes for handling HTTP requests

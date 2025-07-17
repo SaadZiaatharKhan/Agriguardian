@@ -43,3 +43,4 @@ Models/VectorDB/vector_db/
 Models/VectorDB/Information_About_Crops/
 Models/.venv/
 Models/__pycache__/
+Models/.env
